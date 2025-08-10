@@ -432,7 +432,7 @@ export default function AtlanticSkyAirways() {
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <div className="relative z-10 text-center">
-            <h1 className="text-8xl md:text-[10rem] font-black text-white mb-8 tracking-tight leading-none animate-glow">
+            <h1 className="text-8xl md:text-[10rem] font-black text-white mb-8 tracking-tight leading-none">
               United Airlines
             </h1>
             <Button
@@ -483,11 +483,15 @@ export default function AtlanticSkyAirways() {
         </div>
 
         {/* Navigation */}
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-white/5 via-white/10 to-white/5 border-b border-white/20 shadow-2xl">
-          <div className="container mx-auto px-4 py-0 h-20 flex items-center justify-between">
+        <nav className="fixed top-0 w-full z-50 relative h-20">
+          <img
+            src="/images/united-banner.png"
+            alt="United Airlines Banner"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="container mx-auto px-4 py-0 h-full flex items-center justify-between relative z-10">
             <div className="flex-shrink-0">
-              {/* Removed the Image component for the logo */}
-              <span className="text-white text-2xl font-bold">United Airlines</span>
+              
             </div>
 
             <div className="flex items-center space-x-6">
@@ -740,39 +744,30 @@ export default function AtlanticSkyAirways() {
                 Have questions or need assistance? Reach out to our support team.
               </p>
               <div className="flex flex-col items-center space-y-4">
-                <div className="flex items-center space-x-2 text-lg">
-                  <span className="font-medium">{"Roblox: "}</span>
-                  <a
-                    href="https://www.roblox.com/communities/33198505/Atlantic-Sky-Airways"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sky-300 hover:underline"
-                  >
-                    {"https://www.roblox.com/communities/33198505/Atlantic-Sky-Airways"}
-                  </a>
-                </div>
-                <div className="flex items-center space-x-2 text-lg">
-                  <span className="font-medium">{"Tiktok: "}</span>
-                  <a
-                    href="https://www.tiktok.com/@atlanticskyairways"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sky-300 hover:underline"
-                  >
-                    {"https://www.tiktok.com/@atlanticskyairways"}
-                  </a>
-                </div>
-                <div className="flex items-center space-x-2 text-lg">
-                  <span className="font-medium">{"Discord:"}</span>
-                  <a
-                    href="https://discord.gg/74we98DgEM"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sky-300 hover:underline"
-                  >
-                    https://discord.gg/74we98DgEM
-                  </a>
-                </div>
+                <a
+                  href="https://www.roblox.com/communities/33198505/Atlantic-Sky-Airways"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-300 hover:underline font-semibold text-lg"
+                >
+                  Roblox Community
+                </a>
+                <a
+                  href="https://www.tiktok.com/@atlanticskyairways"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-300 hover:underline font-semibold text-lg"
+                >
+                  Tiktok
+                </a>
+                <a
+                  href="https://discord.gg/74we98DgEM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-300 hover:underline font-semibold text-lg"
+                >
+                  Discord Server
+                </a>
               </div>
             </div>
           </section>
@@ -782,7 +777,7 @@ export default function AtlanticSkyAirways() {
         {showLogin && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
             <div className="absolute inset-0 bg-gradient-to-br from-sky-900/20 to-purple-900/20" />
-            <Card className="w-full max-w-md backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 shadow-2xl relative">
+            <Card className="w-full max-w-md bg-slate-900 border border-slate-700 shadow-lg relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-sky-400 to-purple-400 rounded-lg blur opacity-20" />
               <CardHeader className="relative">
                 <CardTitle className="text-white text-center text-2xl font-bold flex items-center justify-center">
@@ -864,7 +859,7 @@ export default function AtlanticSkyAirways() {
         {showAdmin && canManageFlights && (
           <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
             <div className="absolute inset-0 bg-gradient-to-br from-sky-900/20 to-purple-900/20" />
-            <Card className="w-full max-w-5xl max-h-[85vh] overflow-hidden backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 shadow-2xl relative">
+            <Card className="w-full max-w-5xl max-h-[85vh] overflow-hidden bg-slate-900 border border-slate-700 shadow-lg relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-sky-400 to-purple-400 rounded-lg blur opacity-20" />
               <CardHeader className="relative border-b border-white/20">
                 <CardTitle className="text-white text-center text-2xl font-bold flex items-center justify-center">
@@ -1403,7 +1398,7 @@ export default function AtlanticSkyAirways() {
         {/* Purchase Warning Modal */}
         {showPurchaseWarning && (
           <Dialog open={showPurchaseWarning} onOpenChange={setShowPurchaseWarning}>
-            <DialogContent className="bg-gradient-to-br from-sky-900/20 to-purple-900/20 text-white opacity-100">
+            <DialogContent className="bg-slate-900 text-white opacity-100 border border-slate-700">
               <DialogHeader>
                 <DialogTitle className="text-white text-center text-2xl font-bold flex items-center justify-center">
                   <AlertTriangle className="h-6 w-6 mr-2 text-red-400" />
