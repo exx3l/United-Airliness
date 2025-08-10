@@ -35,23 +35,23 @@ import {
 } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 
-// Import Server Actions and types from lib/db
+// Import Server Actions and types
 import {
-  getFlightsAction,
-  addFlightAction,
-  deleteFlightAction,
-  updateFlightInterestAction,
-  updateFlightStatusAction,
-  getUsersAction,
-  addUserAction,
-  deleteUserAction,
-  findUserAction,
-  updateUserAction,
-  getActionLogsAction,
-  addActionLogAction,
-  deleteActionLogAction,
+  getFlights,
+  addFlight,
+  deleteFlight,
+  updateFlightInterest,
+  updateFlightStatus,
+  getUsers,
+  addUser,
+  deleteUser,
+  findUser,
+  updateUser,
+  getActionLogs,
+  addActionLog,
+  deleteActionLog,
 } from "@/actions"
-import type { Flight, ASAUser, ActionLog } from "@/lib/db"
+import type { Flight, ASAUser, ActionLog } from "@/lib/types" // Import types from new file
 
 export default function AtlanticSkyAirways() {
   const [flights, setFlights] = useState<Flight[]>([])
@@ -100,9 +100,9 @@ export default function AtlanticSkyAirways() {
     setIsLoading(true)
     await new Promise((resolve) => setTimeout(resolve, 500))
 
-    const fetchedFlights = await getFlightsAction()
-    const fetchedUsers = await getUsersAction()
-    const fetchedActionLogs = await getActionLogsAction()
+    const fetchedFlights = await getFlights()
+    const fetchedUsers = await getUsers()
+    const fetchedActionLogs = await getActionLogs()
 
     setFlights(fetchedFlights)
     setUsers(fetchedUsers)
@@ -151,7 +151,7 @@ export default function AtlanticSkyAirways() {
     setIsLoading(true)
     setLoginError("")
 
-    const user = await findUserAction(loginForm.username, loginForm.password)
+    const user = await findUser(loginForm.username, loginForm.password)
 
     if (user && (user.role === "owner" || user.role === "hr" || user.role === "personnel")) {
       setCurrentUser(user)
@@ -182,7 +182,7 @@ export default function AtlanticSkyAirways() {
 
     setIsLoading(true)
     try {
-      const addedFlight = await addFlightAction(newFlight)
+      const addedFlight = await addFlight(newFlight)
       setFlights((prev) => [...prev, addedFlight])
       setFlightInterest((prev) => ({ ...prev, [addedFlight.number]: addedFlight.interested }))
       setNewFlight({ number: "", route: "", date: "", time: "", gate: "", gameLink: "" }) // Reset gameLink
@@ -202,7 +202,7 @@ export default function AtlanticSkyAirways() {
       return
     }
 
-    await deleteFlightAction(flightId)
+    await deleteFlight(flightId)
     setFlights((prev) => prev.filter((f) => f.id !== flightId))
     setFlightInterest((prev) => {
       const updated = { ...prev }
@@ -221,7 +221,7 @@ export default function AtlanticSkyAirways() {
     }
     setIsLoading(true)
     try {
-      const updatedFlight = await updateFlightStatusAction(flightId, checked)
+      const updatedFlight = await updateFlightStatus(flightId, checked)
       if (updatedFlight) {
         setFlights((prev) => prev.map((f) => (f.id === flightId ? { ...f, isActive: updatedFlight.isActive } : f)))
       } else {
@@ -243,7 +243,7 @@ export default function AtlanticSkyAirways() {
 
     setIsLoading(true)
     try {
-      const addedUser = await addUserAction(newUser, currentUser.username)
+      const addedUser = await addUser(newUser, currentUser.username)
       setUsers((prev) => [...prev, addedUser])
       setNewUser({ username: "", password: "", role: "hr" })
     } catch (error: any) {
@@ -264,7 +264,7 @@ export default function AtlanticSkyAirways() {
       return
     }
 
-    await deleteUserAction(userId)
+    await deleteUser(userId)
     setUsers((prev) => prev.filter((u) => u.id !== userId))
   }
 
@@ -280,7 +280,7 @@ export default function AtlanticSkyAirways() {
 
     setIsLoading(true)
     try {
-      const addedLog = await addActionLogAction(newActionLog, currentUser.username)
+      const addedLog = await addActionLog(newActionLog, currentUser.username)
       setActionLogs((prev) => [addedLog, ...prev])
       setNewActionLog({ action: "kick", targetUser: "", reason: "" })
     } catch (error: any) {
@@ -296,7 +296,7 @@ export default function AtlanticSkyAirways() {
       return
     }
 
-    await deleteActionLogAction(logId)
+    await deleteActionLog(logId)
     setActionLogs((prev) => prev.filter((log) => log.id !== logId))
   }
 
@@ -319,7 +319,7 @@ export default function AtlanticSkyAirways() {
 
     setIsLoading(true)
     try {
-      const updatedUser = await updateUserAction(currentUser.id, {
+      const updatedUser = await updateUser(currentUser.id, {
         username: ownerProfile.username,
         password: ownerProfile.newPassword,
       })
@@ -344,7 +344,7 @@ export default function AtlanticSkyAirways() {
   }
 
   const handleInterestClick = async (flightNumber: string) => {
-    const updatedInterest = await updateFlightInterestAction(flightNumber)
+    const updatedInterest = await updateFlightInterest(flightNumber)
     setFlightInterest((prev) => ({
       ...prev,
       [flightNumber]: updatedInterest,
